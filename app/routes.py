@@ -10,6 +10,7 @@ def index():
 def submit():
     name = request.form['name']
     email = request.form['email']
+    city = request.form['city']
     phone = request.form.get('phone', '')  # Optional field
     user = User(name=name, email=email, phone=phone)
     db.session.add(user)
