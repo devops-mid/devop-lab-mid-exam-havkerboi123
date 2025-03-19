@@ -9,12 +9,28 @@
 <body>
     <h1>Welcome to the Simple Web App</h1>
     <form action="/submit" method="post">
-        Name: <input type="text" name="name" required><br>
-        Email: <input type="email" name="email" required><br>
-        Phone: <input type="text" name="phone"><br>
-        City: <input type="text" name="city"><br>  <!-- New field for city -->
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required placeholder="example@example.com" 
+               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+               title="Please enter a valid email address (e.g., example@example.com)"><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" 
+               pattern="^\d{20}$" 
+               title="Phone number must be exactly 20 digits" 
+               maxlength="20" 
+               minlength="20" 
+               required><br>
+
+        <label for="city">City:</label>
+        <input type="text" name="city"><br>
+
         <input type="submit" value="Submit">
     </form>
+
 </body>
 </html>
 
