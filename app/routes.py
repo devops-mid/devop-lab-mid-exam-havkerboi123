@@ -1,3 +1,4 @@
+# routes.py
 from flask import render_template, request, redirect, url_for
 from app import app, db
 from app.models import User
@@ -10,9 +11,13 @@ def index():
 def submit():
     name = request.form['name']
     email = request.form['email']
-    city = request.form['city']
     phone = request.form.get('phone', '')  # Optional field
-    user = User(name=name, email=email, phone=phone)
+    city = request.form.get('city')  
+
+    
+    user = User(name=name, email=email, phone=phone, city=city)
     db.session.add(user)
     db.session.commit()
+    
     return redirect(url_for('index'))
+
