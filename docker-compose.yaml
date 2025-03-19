@@ -2,13 +2,20 @@ version: '3.8'
 
 services:
   flask-app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 2022337  # Specify the image name here
     ports:
       - "5000:5000"
     depends_on:
       - postgres
     environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
       - DATABASE_URL=postgresql://user:password@postgres:5432/mydb
+    networks:
+      - webnet
 
   postgres:
     image: postgres:13
@@ -20,6 +27,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - webnet
 
   prometheus:
     image: prom/prometheus
@@ -29,6 +38,12 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - webnet
 
 volumes:
   postgres_data:
+
+networks:
+  webnet:
+
